@@ -9,4 +9,12 @@ class AmphibiousVehicle(Car, Boat):
     def travel(self, land_distance=0, water_distance=0):
         self.voyage(water_distance)
         self.drive(land_distance)
+
+    def __str__(self):
+        return f"<{self.__class__.__name__} {self.__dict__}>"
+
+if __name__ == "__main__":
+    water_car = AmphibiousVehicle('4 cylider')
+    print(water_car)
+
     
