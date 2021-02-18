@@ -9,21 +9,21 @@ try:
 except OSError:
     print("'processed' directory already exists")
 #file = "C:/Users/seeni/Desktop/python-projects/receipts/new"
-receipts = glob.glob("./new/receipts-*[0-9].json")
 #receipts  = fnmatch.fnmatch(''.', "*['0-9'].json")
 
 subtotal = 0.0
 #print(receipts)
 
-for path in receipts:
-    print(receipts)
+for path in glob.iglob("./new/receipts-*[0-9].json"):
+    
     try:
         with open(path) as f:
             content = json.load(f)
             subtotal += float(content['value'])
-        name = path.split("\\")[-1]
+        #name = path.split("\\")[-1]
            # print(name)
-        destination = (f"./processed/{name}")
+        
+        destination = path.replace('new', 'processed')
         shutil.move(path, destination)
         print(f"moved '{path}' to '{destination}'")
         
@@ -31,5 +31,6 @@ for path in receipts:
             print(err)
 
 
-print("Receipt subtotal: $%.2f" % subtotal)
-
+#import math
+print(f"Receipt subtotal: ${round(subtotal, 2)}")
+#print(f"Receipt subtotal: ${math.floor(subtotal)}")
